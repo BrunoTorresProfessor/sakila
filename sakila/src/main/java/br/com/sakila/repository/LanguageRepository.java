@@ -1,5 +1,13 @@
 package br.com.sakila.repository;
 
-public interface LanguageRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+
+import br.com.sakila.model.LanguageModel;
+
+@Repository
+public interface LanguageRepository extends JpaRepository<LanguageModel, Long>{
 
 }
+
