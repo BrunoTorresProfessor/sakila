@@ -14,7 +14,7 @@ public class LanguageController {
 	private LanguageRepository languageRepository;
 	
 	@GetMapping({"/idiomas/idiomas"}) //é o nome que eu quiser colocar
-    public String listarAtores(ModelMap model) { 			
+    public String listarIdiomas(ModelMap model) { 			
     	   
 		 //o findAll lista todos atores 
 		 model.addAttribute("idiomas",languageRepository.findAll());
