@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		
+		<!-- Imagem de Título -->
+		<link rel="shortcut icon" href="/images/logo-ico.png" >
+	
+        <!-- Bootstrap 5 dependency -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	    
+	    <meta charset="utf-8"/>
+    <title>Banco de Interesse por Remoção - Login</title>
+
+    <link th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.min.css}" rel="stylesheet"/>
+    	<script>
+		function AlteraMinusculas(campo) {
+	  	campo.value=campo.value.toLowerCase();
+		}		
+		function somenteNumeros(e) {
+	        var charCode = e.charCode ? e.charCode : e.keyCode;
+	        // charCode 8 = backspace   
+	        // charCode 9 = tab
+	        if (charCode != 8 && charCode != 9) {
+	            // charCode 48 equivale a 0   
+	            // charCode 57 equivale a 9
+	            if (charCode < 48 || charCode > 57) {
+	                return false;
+	            }
+	        }
+	    }
+		</script> 
+    
+</head>
+
+<body>
+<!-- 10/01/2014 -->
+<div class="container">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-image: linear-gradient(#00420c,#61b06f);">
+
+<a class="navbar-brand" href="/"><font color="white">Banco de Interesse por Redistribuição - IFRJ</font></a>
+
+</nav>
+
+ <div class="row">
+    <div class="col-md-12 col-sm-12">
+  	
+		<div th:if="${param.error}">
+            <div class="alert alert-danger">Usuario/senha invalidos!</div>
+        </div>
+
+        <div th:if="${param.logout}">
+            <div class="alert alert-info">Usuário desconectado!</div>
+        </div>
+ 	</div>
+ </div>
+
+       
+ <form th:action="@{/login}" method="post">
+ 
+
+ 
+ <div class="row">
+ 	
+ 
+	 <div class="col-md-12 col-sm-12">
+	 <label for="basic-url" class="font-weight-bold">CPF</label>
+	 </div>
+	 <div class="col-md-12 col-sm-12">
+	 <input class="form-control" type="text" maxlength="11" name="username" placeholder="Digite somente números" required onkeypress="return somenteNumeros(event)" />
+	 </div>
+	 <div class="col-md-12 col-sm-12">
+	 	<label for="basic-url" class="font-weight-bold">SENHA</label>  
+	 </div>
+	 <div class="col-md-12 col-sm-12">
+	 <input class="form-control" type="password" name="password"  required/>
+	 </div> 
+	
+	 <div class="col-md-4 col-sm-4">
+	 <label for="lblLogin"></label>  
+	 <button type="submit" class="btn btn-outline-secondary form-control" >Login</button>
+	 </div>
+
+    <div class="col-md-4 col-sm-4">
+      <label for="lblsemlogin"></label>
+	 <a href="/cadastro/cadastrar" class="btn btn-outline-secondary form-control">Cadastrar</a>
+     </div>
+     <div class="col-md-4 col-sm-4">
+      <label for="lblsemlogin"></label>
+	 <a href="/cadastro/recuperar_senha" class="btn btn-outline-secondary form-control">Esqueci minha senha</a>
+     </div>
+</div> 
+    
+  
+	</div> 
+     
+
+</div> 
+
+
+  
+        
+</form>
+         
+    
+</div>
+
+
+</body>
+</html>
