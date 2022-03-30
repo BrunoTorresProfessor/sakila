@@ -48,4 +48,5 @@ public class ActorModel implements Serializable{
 		this.lastUpdate = lastUpdate;
 	}
 
+
 }

@@ -11,7 +11,10 @@
         <a class="nav-link" href="/">Home <span class="sr-only"></span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/atores/atores">Atores</a>
+        <a class="nav-link" href="/atores/atores" sec:authorize="hasAnyRole('ATOR')">Atores</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/atores/enderecos" sec:authorize="hasAnyRole('ADMIN')">ENDEREÇOS</a>
       </li>
 
     </ul>

@@ -31,5 +31,13 @@ public class ActorController {
 		 return "atores/atores"; //é o nome do arquivo real	
     	    	
     }
+	
+	@GetMapping({"/atores/enderecos"}) //é o nome que eu quiser colocar
+    public String listarEnderecos(ModelMap model) { 			
+   
+		 return "atores/enderecos"; //é o nome do arquivo real	
+    	    	
+    }
+
 
 }
