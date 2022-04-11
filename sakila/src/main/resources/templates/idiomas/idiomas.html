@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="layout/cabecalho">
+<meta charset="ISO-8859-1">
+<title>Eu vou ser um analista baby</title>
+</head>
+<body>
+<!-- Importa o menu padr�o do sistema -->
+<div th:insert="layout/menu"></div>
+
+Eu vou ser um analista baby!!!
+<table class="table table-sm table-striped table-hover table-bordered">
+					<thead>
+						<tr>
+							<th>Idioma</th>
+							<th>Nome</th>
+						
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="idioma : ${idiomas}" >
+							<td th:text="${idioma.LanguageId}"></td>
+							<td th:text="${idioma.Name}"></td>		
+								
+											
+						</tr>
+						
+					</tbody>
+</table>
+
+	<!-- Importa o rodape padr�o do sistema -->
+	<div th:insert="layout/rodape"></div>
+</body>
+</html>
