@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- Importa as configurações de cabecalho -->
+<head th:insert="layout/cabecalho">
+<title>Recuperar Senha</title>
+</head>
+<body>
+<div class="container">
+	<!-- Importa o menu padrão do sistema -->
+	<div th:insert="layout/menu"></div>
+	<br>
+	
+		<nav aria-label="breadcrumb">
+  		<ol class="breadcrumb">
+    	<li class="breadcrumb-item">Cadastro</li>
+    	<li class="breadcrumb-item">Recuperar Senha</li>
+
+  		</ol>
+		</nav>
+
+  
+  <form class="form-horizontal" th:action="@{/cadastro/recuperar_senha}" method="POST" style="margin: 10px" th:object="${usuarioModel}">
+ 
+    <!-- Retorna uma mensagem na tela para o usuário após a operação -->
+	<div class="alert alert-success" th:text="${mensagem}" th:if="${not #strings.isEmpty(mensagem)}"></div>
+	<div class="alert alert-danger"  th:if="${#fields.hasAnyErrors()}">
+		<div th:each="detailedError : ${#fields.detailedErrors()}">
+			<span th:text="${detailedError.message}"></span>
+		</div>	
+	</div>
+	
+	<div class="row">
+	
+    <div class="col-md-12 col-sm-12" th:classappend="${#fields.hasErrors('cpf')} ? 'has-error'">
+    <label for="basic-url" class="font-weight-bold">CPF</label>  
+	<input class="form-control" type="text" maxlength="11" id="cpf" name="cpf" th:field="*{cpf}" placeholder="Digite somente números" required onkeypress="return somenteNumeros(event)"/>
+	</div> 
+	
+	<div class="col-md-12 col-sm-12" >  
+	<label for="basic-url"></label> 
+    <button type="submit" class="btn btn-outline-secondary form-control">Recuperar Senha</button>
+    </div>
+	
+    </div>
+										
+   
+  </form>
+
+  
+  
+</div>
+	<!-- Importa o rodape padrão do sistema -->
+	<div th:insert="layout/rodape"></div>
+
+</body>
+</html>

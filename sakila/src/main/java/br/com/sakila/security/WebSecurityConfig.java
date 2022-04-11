@@ -29,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	           .antMatchers("/images/**").permitAll() //configuração para permitir que o bootstrap funcione na aplicação
 	           .antMatchers("/login").permitAll() //libera o acesso a página para todos os usuários
 	           .antMatchers("/atores/atores").hasAnyRole(ePermissao.ATOR.toString()) //libera o acesso a página para um perfil específico
+	           .antMatchers("/cadastro/recuperar_senha").permitAll() 
 	           .anyRequest()
 	           .authenticated()
 	           .and()
