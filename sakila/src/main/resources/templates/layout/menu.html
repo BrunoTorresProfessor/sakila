@@ -14,8 +14,13 @@
         <a class="nav-link" href="/atores/atores" sec:authorize="hasAnyRole('ATOR')">Atores</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/atores/enderecos" sec:authorize="hasAnyRole('ADMIN')">ENDEREÇOS</a>
+        <a class="nav-link" href="/atores/enderecos" sec:authorize="hasAnyRole('ATOR')">Enderecos</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/administracao/listar_usuarios" sec:authorize="hasAnyRole('ATOR')">Usuarios</a>
+      </li>
+      
+
 
     </ul>
   </div>
