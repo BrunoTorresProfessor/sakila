@@ -73,7 +73,14 @@
 		
 		<!-- termina o envio de email -->
 		
-
+		
+		
+		<!-- começa dependencia de validação -->
+		<dependency>
+    	<groupId>org.springframework.boot</groupId>
+   		 <artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+	    <!-- termina a dependencia de validação -->
     
 
 

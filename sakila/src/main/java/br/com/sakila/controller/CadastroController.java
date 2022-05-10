@@ -3,14 +3,18 @@ package br.com.sakila.controller;
 import java.util.Arrays;
 import java.util.Random;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -83,6 +87,41 @@ public class CadastroController {
     	    	
     }
 	
+	@PostMapping(value="/administracao/cadastrar_usuario")
+    public ModelAndView cadastrarUsuario(
+    		@Valid UsuarioModel usuario,
+    		BindingResult result,//o bindingResult deve sempre vir apos o objeto que ele está validando
+    		@RequestParam("confirmar_email") String confirmarEmail,   
+    		RedirectAttributes atributes) 
+	{ 
+		//Verifica se existe algum erro na validação do bean validation da entidade
+		if (result.hasErrors()) {
+			//se existit erro retorna o mesmo usuario para a view para que não seja necessário digitar todos os dados novamente
+			return cadastrar(usuario);
+		}
+		
+		//redirecina para o método getmapping
+		ModelAndView mv = new ModelAndView("redirect:listar_usuarios");
+		usuarioRepository.save(usuario);
+		atributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso!");
+		
+		return mv;
+    	    	
+    }
+	@GetMapping(value="/cadastro/cadastrar")
+    public ModelAndView cadastrar(UsuarioModel usuario) { 	 
+		ModelAndView mv = new ModelAndView("cadastro/cadastrar");
+        return mv;      	
+    }
+	
+	@GetMapping("/administracao/deletar/{id}")
+	public String delete(UsuarioModel usuario,@PathVariable("id") Long id, RedirectAttributes attr) {
+		usuario = (UsuarioModel)this.usuarioRepository.getOne(id);
+		this.usuarioRepository.delete(usuario); //Exclui o usuário
+		attr.addFlashAttribute("mensagem", "Usuário excluído com sucesso.");
+		attr.addFlashAttribute("tipo_mensagem", "alert alert-success");
+		return "redirect:../listar_usuarios";
+	}
 	
 	
 	
