@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.sakila.mail.Mailer;
 import br.com.sakila.mail.Mensagem;
 import br.com.sakila.model.UsuarioModel;
+import br.com.sakila.repository.GrupoRepository;
 import br.com.sakila.repository.UsuarioRepository;
 
 @Controller
@@ -28,6 +30,9 @@ public class CadastroController {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private GrupoRepository grupoRepository;
 	
 	@Autowired
 	private Mailer mailer;
@@ -89,9 +94,10 @@ public class CadastroController {
 	
 	@PostMapping(value="/administracao/cadastrar_usuario")
     public ModelAndView cadastrarUsuario(
-    		@Valid UsuarioModel usuario,
+    		@Valid @ModelAttribute("usuarioModel") UsuarioModel usuario,
     		BindingResult result,//o bindingResult deve sempre vir apos o objeto que ele está validando
     		@RequestParam("confirmar_email") String confirmarEmail,   
+    		@RequestParam(required = false, name =  "id_usuario")  Long idUsuario,
     		RedirectAttributes atributes) 
 	{ 
 		//Verifica se existe algum erro na validação do bean validation da entidade
@@ -102,7 +108,12 @@ public class CadastroController {
 		
 		//redirecina para o método getmapping
 		ModelAndView mv = new ModelAndView("redirect:listar_usuarios");
+		if (usuario != null) {
+			usuario.setId_usuario(idUsuario);
+		}
+		//O método save salva uma informação nova ou atualiza se o ID estiver setado
 		usuarioRepository.save(usuario);
+		
 		atributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso!");
 		
 		return mv;
@@ -122,6 +133,16 @@ public class CadastroController {
 		attr.addFlashAttribute("tipo_mensagem", "alert alert-success");
 		return "redirect:../listar_usuarios";
 	}
+	@GetMapping(value = "/administracao/alterar_usuario/{id}")
+	public ModelAndView alterarUnidadeUsuario(UsuarioModel usuarioModel,ModelMap model, @PathVariable("id") Long idUsuario) {
+		    //cria uma instância do usuário vazia	
+		 	UsuarioModel usuario = new UsuarioModel();	
+		 	//consulta o usuário com o id recuperado via GET e adiciona no objeto instanciado
+		 	usuario = usuarioRepository.getOne(idUsuario); 
+		 	//passa esse objeto instanciado chamando de usuarioModel para a página cadastrarúsuario.html
+		    model.addAttribute("usuarioModel", usuarioRepository.findById(idUsuario));	
+	  		return new ModelAndView("administracao/cadastrar_usuario", model);					
+	 }
 	
 	
 	
@@ -139,6 +160,18 @@ public class CadastroController {
 
 		return new String(senha);
 	}
+	
+	 @GetMapping(value = "/usuarios/listar_grupos/{id}")
+	 public ModelAndView listarEventos(ModelMap model, @PathVariable("id") Long id_usuario) {
+			  				
+		    model.addAttribute("usuario", usuarioRepository.findById(id_usuario));				
+	    	//model.addAttribute("grupos_usuarios", grupoRepository.findByUsuariosIn(usuarioRepository.getOne(id_usuario)));
+	  		model.addAttribute("grupos", grupoRepository.findAll());		
+	  		model.addAttribute("id_usuario", id_usuario);
+	  		return new ModelAndView("usuarios/listar_grupos", model);
+					
+	}
+
 
 
 }

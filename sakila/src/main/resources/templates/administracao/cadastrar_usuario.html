@@ -31,6 +31,9 @@
 	<div class="row">
 	
 	<div class="col-md-12 col-sm-12">
+  	<input class="form-control" type="hidden" maxlength="50" name="id_usuario" th:field="*{id_usuario}"/>
+	
+	<div class="col-md-12 col-sm-12">
     <label for="basic-url" class="font-weight-bold">NOME</label>
 	<input class="form-control" type="text" maxlength="50" name="nome" th:field="*{nome}" placeholder="Nome completo" required onkeyup="return AlteraMaiusculas(this)"/>
 	
