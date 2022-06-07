@@ -30,6 +30,20 @@ Eu vou ser um analista baby!!!
 					</tbody>
 </table>
 
+
+
+    <nav aria-label="Paginação">
+	<ul class="pagination">  
+		<div th:if="${atores.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">	  
+	    <li class="page-item">
+	    <a th:href="@{/atores/atores/{page}(page=${pageNumber})}"
+	        th:text=${pageNumber}
+	        th:class="${pageNumber==atores.number + 1} ? 'active' :page-link"></a>
+	    </li>
+		</div>
+     </ul>
+    </nav>
+
 	<!-- Importa o rodape padrão do sistema -->
 	<div th:insert="layout/rodape"></div>
 </body>

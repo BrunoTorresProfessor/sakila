@@ -24,6 +24,7 @@ import br.com.sakila.mail.Mensagem;
 import br.com.sakila.model.UsuarioModel;
 import br.com.sakila.repository.GrupoRepository;
 import br.com.sakila.repository.UsuarioRepository;
+import br.com.sakila.service.UsuarioService;
 
 @Controller
 public class CadastroController {
@@ -32,10 +33,16 @@ public class CadastroController {
 	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
+	private UsuarioService usuarioService;
+	
+	@Autowired
 	private GrupoRepository grupoRepository;
 	
 	@Autowired
 	private Mailer mailer;
+	
+	private String mensagem;
+
 	
 
 	
@@ -108,13 +115,8 @@ public class CadastroController {
 		
 		//redirecina para o método getmapping
 		ModelAndView mv = new ModelAndView("redirect:listar_usuarios");
-		if (usuario != null) {
-			usuario.setId_usuario(idUsuario);
-		}
-		//O método save salva uma informação nova ou atualiza se o ID estiver setado
-		usuarioRepository.save(usuario);
-		
-		atributes.addFlashAttribute("mensagem", "Usuário cadastrado com sucesso!");
+		mensagem = usuarioService.CadastrarUsuario(usuario, confirmarEmail, idUsuario);
+		atributes.addFlashAttribute("mensagem", mensagem);
 		
 		return mv;
     	    	
