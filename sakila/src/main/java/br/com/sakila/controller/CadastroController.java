@@ -113,6 +113,8 @@ public class CadastroController {
 			return cadastrar(usuario);
 		}
 		
+		System.out.println("data" + usuario.getDataExpiracao());
+		
 		//redirecina para o método getmapping
 		ModelAndView mv = new ModelAndView("redirect:listar_usuarios");
 		mensagem = usuarioService.CadastrarUsuario(usuario, confirmarEmail, idUsuario);

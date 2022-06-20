@@ -1,6 +1,7 @@
 package br.com.sakila.model;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 
@@ -45,8 +46,11 @@ public class UsuarioModel implements Serializable,UserDetails {
 
 	@Column(name = "senha") 
 	private String senha;
-
 	
+
+	@Column(name = "data_expiracao") 
+	private Date dataExpiracao;
+
 	@ManyToMany
 	@JoinTable(name="usuarios_permissoes",
     joinColumns={@JoinColumn(name="usuarios_id_usuario", referencedColumnName = "id_usuario")},
@@ -90,6 +94,13 @@ public class UsuarioModel implements Serializable,UserDetails {
 	}
 	public void setPermissoes(List<PermissaoModel> permissoes) {
 		this.permissoes = permissoes;
+	}
+	
+	public Date getDataExpiracao() {
+		return dataExpiracao;
+	}
+	public void setDataExpiracao(Date dataExpiracao) {
+		this.dataExpiracao = dataExpiracao;
 	}
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

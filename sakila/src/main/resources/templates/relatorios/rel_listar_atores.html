@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!-- Importa as configurações de cabecalho -->
+<head th:insert="layout/cabecalho">
+<title>Lista de Atores</title>
+</head>
+<body>
+<div class="container">	
+	<form class="form-horizontal"  method="POST" style="margin: 10px">
+	<table class="table table-sm table-striped table-hover table-bordered">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Primeiro Nome</th>
+								<th>Ultimo Nome</th>
+								<th>Ultima Atualizacao</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="ator : ${atores}" >
+								<td th:text="${ator.ActorId}"></td>
+								<td th:text="${ator.FirstName}"></td>		
+								<td th:text="${ator.LastName}"></td>
+							    <td th:text="${ator.LastUpdate}"></td>													
+							</tr>							
+						</tbody>
+	</table>
+  </form>
+  <form>
+  <hr>
+	<button type="button" class="btn btn-primary mb-2 mr-2" onClick="window.print()">Imprimir/Salvar PDF</button>				
+  </form>  
+</div>
+</body>
+</html>
